@@ -97,6 +97,7 @@ type State struct {
 	Paused     bool      `json:"Paused,omitempty" yaml:"Paused,omitempty"`
 	Restarting bool      `json:"Restarting,omitempty" yaml:"Restarting,omitempty"`
 	OOMKilled  bool      `json:"OOMKilled,omitempty" yaml:"OOMKilled,omitempty"`
+	Dead       bool      `json:"Dead,omitempty" yaml:"Dead,omitempty"`
 	Pid        int       `json:"Pid,omitempty" yaml:"Pid,omitempty"`
 	ExitCode   int       `json:"ExitCode,omitempty" yaml:"ExitCode,omitempty"`
 	Error      string    `json:"Error,omitempty" yaml:"Error,omitempty"`
@@ -106,6 +107,9 @@ type State struct {
 
 // String returns the string representation of a state.
 func (s *State) String() string {
+	if s.Dead {
+		return "Dead"
+	}
 	if s.Running {
 		if s.Paused {
 			return "paused"
